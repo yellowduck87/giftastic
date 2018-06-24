@@ -11,7 +11,10 @@ var url = "https://api.giphy.com/v1/gifs/search?q="+ variable + "&api_key=dc6zaT
 
 var variable = "cat"
 //varibale = button click listener or input field on screen
+var imgSrc = response.data[0].images.fixed_height.url;
+var newImg = $("<img>");
+newImg.attr("src", imgSrc);
 
 $.ajax(url).then(function(response){
-    document.write(response.data[0].images.fixed_height.url)
+    $(".section").append(newImg)
 });
