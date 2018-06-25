@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +15,56 @@
     <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </head>
+
 <body>
-    <div class="section">
-        
+    <div class="jumbotron">
+        <h1>Gif Generator</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-xs-5"> -->
+
+            <div class="card">
+                <div class="card-header">
+                    Gif Buttons
+                </div>
+                <div class="card-body" id="button-box">
+                </div>
+            </div>
+            <!-- </div> -->
+            <!-- <div class="col-xs-10" id="add-tag"> -->
+            <div class="card" id="add-tag">
+                <div class="card-header">Add an animal</div>
+                <div class="input-group input-group-sm mb-3 card-body">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text add-animal" id="inputGroup-sizing-sm">Add</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="animal-input">
+                </div>
+            </div>
+            <!-- </div> -->
+            <!-- <div class="col-xs-3" id="favorites"> -->
+            <div class="card">
+                <div class="card-header">
+                    Favorites
+                </div>
+                <div class="card-body" id="favorites">
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <div class="row">
+            <!-- <div class="col-xs-10"> -->
+            <div class="card">
+
+                <div class="card-body" id="play-area">
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+
+
     </div>
 </body>
+
 </html>

@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+.jumbotron {
+    padding: 30px 20px 10px 20px;
+    text-align: center;
+}
+
+.col-xs-5, .col-xs-3 {
+    padding: 10px;
+    margin: 5px auto;
+}
+.col-xs-10 {
+    margin: 10px auto;
+    padding: 10px 70px;
+}
+
+#play-area {
+    min-width: 80%;
+}
+
+.btn-secondary {
+    margin: 10px 5px 10px 5px;
+}
