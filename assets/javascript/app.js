@@ -1,18 +1,7 @@
-//https://api.giphy.com/v1/gifs/search?q=cat&api_key=dc6zaTOxFJmzC&limit=5&
-//example of API search 
-//? indicates search feild
-//& indicates new property
-//concat with +
-//assign with =
-
-//example of ajax
-
-
-//varibale = button click listener or input field on screen
 $(document).ready(function () {
 
 
-    var gifOptions = ["cat", "dog", "bird", "monkey"]
+    var gifOptions = ["cat", "dog", "bird", "monkey", "kitten", "turtle", "hamster", "snake", "puppy", "duckling", "fluffy"]
 
     function makeButtons() {
         $("#button-box ").empty();
@@ -34,23 +23,65 @@ $(document).ready(function () {
     })
 
     makeButtons();
+    var imgSrcAni;
+    var imgSrcStill;
+    var url;
+    var variable;
 
     $(document).on("click", ".animals", function () {
-        var variable = $(this).attr("data-name");
-        var url = "https://api.giphy.com/v1/gifs/search?q=" + variable + "&api_key=dc6zaTOxFJmzC&rating=pg&";
-        
-    
-        $.ajax(url).then(function (response) {
-            // var rand = Math.floor(Math.random() * response.length);
+        $("#play-area").empty();
+        variable = $(this).attr("data-name");
+
+        url = "https://api.giphy.com/v1/gifs/random?tag=" + variable + "&api_key=0iEVKxkLR16EjmugC8AgbL4n4A4I97YC&rating=pg";
+
+        $("#play-area").attr("data-double", variable);
+        generateGifs()
+    });
 
 
-            var imgSrc = response.data[9].images.fixed_height.url;
-            var newImg = $("<img src='something' alt='a gif'>");
-            newImg.attr("src", imgSrc);
-            newImg.attr("alt", $(this).attr("data-name"));
-            $("#play-area").append(newImg)
+    function generateGifs() {
+        for (var j = 0; j < 10; j++) {
+            $.ajax(url).then(function (response) {
 
-        });
+
+                imgSrcAni = response.data.images.fixed_height.url;
+                imgSrcStill = response.data.images.fixed_height_still.url;
+                var newImg = $("<img src='something' alt='a gif'>");
+                newImg.attr("src", imgSrcStill);
+                newImg.attr("data-still", imgSrcStill);
+                newImg.attr("data-ani", imgSrcAni)
+                newImg.attr("data-state", "still");
+                newImg.attr("alt", $(this).attr("data-name"));
+                $("#play-area").append(newImg)
+            });
+
+        };
+    };
+
+    $(document).on("click", "img", function () {
+            if ($(this).attr("data-state") === "still") {
+                $(this).attr("src", ($(this).attr("data-ani")));
+                $(this).attr("data-state", "animate");
+            } else if ($(this).attr("data-state") === "animate") {
+                $(this).attr("src", ($(this).attr("data-still")));
+                $(this).attr("data-state", "still");
+            }
+        }
+
+    );
+
+    if ($("#play-area").attr("data-double") === variable) {
+    }
+
+    $(document).on("dblclick", "img", function () {
+        $(this).addClass("fav")
+        $("#add-fav").append($(this));
+    });
+    $(document).on("dblclick", ".fav", function () {
+        // $(this).removeClass("fav");
+        $(this).remove();
+
+
     })
 
 });

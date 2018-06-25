@@ -17,53 +17,49 @@
 </head>
 
 <body>
-    <div class="jumbotron">
-        <h1>Gif Generator</h1>
-    </div>
+
     <div class="container">
         <div class="row">
-            <!-- <div class="col-xs-5"> -->
-
-            <div class="card">
-                <div class="card-header">
-                    Gif Buttons
-                </div>
-                <div class="card-body" id="button-box">
-                </div>
-            </div>
-            <!-- </div> -->
-            <!-- <div class="col-xs-10" id="add-tag"> -->
-            <div class="card" id="add-tag">
-                <div class="card-header">Add an animal</div>
-                <div class="input-group input-group-sm mb-3 card-body">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text add-animal" id="inputGroup-sizing-sm">Add</span>
+            <div class="col-sm-8">
+                <div class="card" id="buttons">
+                    <div class="card-header">
+                        Gif Buttons
                     </div>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="animal-input">
+                    <div class="card-body" id="button-box">
+                    </div>
                 </div>
             </div>
-            <!-- </div> -->
-            <!-- <div class="col-xs-3" id="favorites"> -->
-            <div class="card">
-                <div class="card-header">
-                    Favorites
-                </div>
-                <div class="card-body" id="favorites">
+            <div class="col-sm-4">
+                <div class="card" id="add-tag">
+                    <div class="card-header">Add an animal</div>
+                    <div class="input-group input-group-lg mb-3 card-body">
+
+                        <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-lg" id="animal-input">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text add-animal" id="inputGroup-sizing-lg">Add</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- </div> -->
         </div>
         <div class="row">
-            <!-- <div class="col-xs-10"> -->
-            <div class="card">
-
-                <div class="card-body" id="play-area">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header" id="play-header">Click to Play or Double Click to Add to Favorites</div>
+                    <div class="card-body" id="play-area">
+                    </div>
                 </div>
             </div>
-            <!-- </div> -->
+            <div class="col-sm-4">
+                <div class="card" id="favorites">
+                    <div class="card-header">
+                        Favorites: Double Click to Delete
+                    </div>
+                    <div class="card-body" id="add-fav">
+                    </div>
+                </div>
+            </div>
         </div>
-
-
     </div>
 </body>
 
