@@ -28,6 +28,10 @@ $(document).ready(function () {
     var url;
     var variable;
 
+    $(document).on("dblclick", ".animals", function() {
+        generateGifs();
+    });
+
     $(document).on("click", ".animals", function () {
         $("#play-area").empty();
         variable = $(this).attr("data-name");
@@ -37,6 +41,8 @@ $(document).ready(function () {
         $("#play-area").attr("data-double", variable);
         generateGifs()
     });
+
+
 
 
     function generateGifs() {
@@ -80,8 +86,21 @@ $(document).ready(function () {
     $(document).on("dblclick", ".fav", function () {
         // $(this).removeClass("fav");
         $(this).remove();
-
-
     })
+
+    function setFavs() {
+        var currentFav = localStorage.getItem('fav');
+        currentFav = document.querySelector('fav');
+        $("#add.fav").append(currentFav);
+    }
+
+    function populateFavs() {
+        localStorage.setItem('fav', document.querySelector("fav"));
+        setFavs();
+    }
+    populateFavs();
+    // window.addEventListener('storage', function(e){
+    //     $(document).querySelector("favs").content = e.
+    // })
 
 });
