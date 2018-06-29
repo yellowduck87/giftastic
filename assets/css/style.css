@@ -21,3 +21,10 @@ img {
 #add-tag {
     padding-bottom: 53px;
 }
+
+.imgBox {
+    float: left;
+    width: 150px;
+    align-content: center;
+    margin: 20px;
+}

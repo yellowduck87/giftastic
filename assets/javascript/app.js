@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-
-    var gifOptions = ["cat", "dog", "bird", "monkey", "kitten", "turtle", "hamster", "snake", "puppy", "duckling", "fluffy"]
-
+    //initial array for gif searches
+    var gifOptions = ["cat", "dog", "bird", "monkey", "kitten", "turtle", "hamster", "snake", "puppy", "duckling", "fluffy", "table flip"]
+    //code to write buttons to the screen
     function makeButtons() {
         $("#button-box ").empty();
         for (var i = 0; i < gifOptions.length; i++) {
@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
 
     }
-
+    //create a new button with input field
     $(".add-animal").on("click", function (event) {
         event.preventDefault();
         var animal = $("#animal-input").val().trim();
@@ -23,42 +23,71 @@ $(document).ready(function () {
     })
 
     makeButtons();
+
+    //varibles
     var imgSrcAni;
     var imgSrcStill;
     var url;
     var variable;
-  
+    var currentFav;
+    var currentFavAni;
 
+    var imgArrayAni = JSON.parse(localStorage.getItem("favAni"))
+    var imgArrayStill = JSON.parse(localStorage.getItem("favStill"))
+
+    if (!Array.isArray(imgArrayStill && imgArrayAni)) {
+        imgArrayStill = [];
+        imgArrayAni = [];
+    }
+
+    //load gifs with the click of a search button
     $(document).on("click", ".animals", function () {
         $("#play-area").empty();
         variable = $(this).attr("data-name");
 
-        url = "https://api.giphy.com/v1/gifs/random?tag=" + variable + "&api_key=0iEVKxkLR16EjmugC8AgbL4n4A4I97YC&rating=pg";
-
-        $("#play-area").attr("data-double", variable);
+        url = "https://api.giphy.com/v1/gifs/search?q=" + variable + "&api_key=0iEVKxkLR16EjmugC8AgbL4n4A4I97YC&rating=pg-13&limit=10";
         generateGifs()
     });
 
 
 
-
+    //fucntion that uses ajax to find random gifs pertaining to search and gives them values and attributes
     function generateGifs() {
-        for (var j = 0; j < 10; j++) {
-            $.ajax(url).then(function (response) {
+        $.ajax(url)
 
+            .then(function (response) {
+             
 
-                imgSrcAni = response.data.images.fixed_height.url;
-                imgSrcStill = response.data.images.fixed_height_still.url;
-                var newImg = $("<img src='something' alt='a gif'>");
-                newImg.attr("src", imgSrcStill);
-                newImg.attr("data-still", imgSrcStill);
-                newImg.attr("data-ani", imgSrcAni)
-                newImg.attr("data-state", "still");
-                newImg.attr("alt", $(this).attr("data-name"));
-                $("#play-area").append(newImg)
+                var results = response.data;
+
+                for (var j = 0; j < results.length; j++) {
+                    var imgDiv = $("<div class='card'>");
+                    imgDiv.addClass("imgBox");
+                    var newImg = $("<img class='thumbnail'>");
+
+                    imgSrcAni = results[j].images.original.url;
+                    imgSrcStill = results[j].images.original_still.url;
+
+                    imgRating = results[j].rating;
+                  
+
+                    newImg.attr("src", imgSrcStill);
+                    newImg.attr("data-still", imgSrcStill);
+                    newImg.attr("data-ani", imgSrcAni)
+                    newImg.attr("data-state", "still");
+                    newImg.attr("alt", $(this).attr("data-name"));
+                    newImg.addClass("post");
+
+                    var rating = $("<p>");
+                    rating.text(imgRating);
+
+                    imgDiv.append("Rating: " + imgRating);
+                    imgDiv.append(newImg)
+
+                    $("#play-area").append(imgDiv)
+                };
+
             });
-
-        };
     };
 
     $(document).on("click", "img", function () {
@@ -75,48 +104,66 @@ $(document).ready(function () {
 
     if ($("#play-area").attr("data-double") === variable) {}
 
-    $(document).on("dblclick", "img", function () {
-        $(this).addClass("fav")
-        $("#add-fav").append($(this));
-        // localStorage.setItem("favSrc", $(this).attr("src"));
-        // favArray.append(favSrc);
-        // favCount++
+    $(document).on("dblclick", ".post", function (event) {
+        console.log("double")
+        event.preventDefault();
+        $(this).removeClass("post");
+        $(this).addClass("fav");
+        imgSrcStill = $(this).attr("data-still");
+        imgArrayStill.push(imgSrcStill);
+        localStorage.setItem("favStill", JSON.stringify(imgArrayStill));
+
+
+
+        imgSrcAni = $(this).attr("data-ani")
+        imgArrayAni.push(imgSrcAni);
+        localStorage.setItem("favAni", JSON.stringify(imgArrayAni))
+        loadStorage();
+
+
     });
 
-    // localStorage.clear();
-    var imgArray = [];
 
     function loadStorage() {
-        // $("#favorites").empty();
-        //var imgArray = JSON.parse(localStorage.getItem("fav"))
+        $("#add-fav").empty();
 
-        // if(!Array.isArray("imgArray")){
-        //     "imgArray" = []
-        // }
-        
-        for (var i = 0; i < localStorage.length; i++) {
-           
+        currentFavStill = JSON.parse(localStorage.getItem("favStill"));
+        currentFavAni = JSON.parse(localStorage.getItem("favAni"));
+
+
+        if (!Array.isArray(currentFavStill && currentFavAni)) {
+            currentFavStill = [];
+            currentFavAni = [];
+        }
+
+
+        for (var i = 0; i < currentFavStill.length; i++) {
+            var p = $("<img>");
+            p.attr("src", currentFavStill[i]);
+            p.attr("data-still", currentFavStill[i])
+            p.attr("data-ani", currentFavAni[i]);
+            p.attr("data-state", "still");
+            p.attr("data-index", i)
+            $("#add-fav").append(p);
         }
     }
     loadStorage();
 
+
+
     $(document).on("dblclick", ".fav", function () {
-        $(this).remove();
+        var stills = JSON.parse(localStorage.getItem("favStill"));
+        var anis = JSON.prase(localStorage.getItem("favAni"));
+        var currentIndex = $(this).attr("data-index");
+
+        stills.splice(currentIndex, 1);
+        imgArrayAni = anis;
+        imgArrayStill = stills;
+
+        localStorage.setItem("anis", JSON.stringify(anis));
+        localStorage.setItem("stills", JSON.stringify(stills));
+
+        loadStorage();
     })
-
-    // function setFavs() {
-    //     var currentFav = localStorage.getItem('fav');
-    //     currentFav = document.querySelector('fav');
-    //     $("#add.fav").append(currentFav);
-    // }
-
-    // function populateFavs() {
-    //     localStorage.setItem('fav', document.querySelector("fav"));
-    //     setFavs();
-    // }
-    // populateFavs();
-    // window.addEventListener('storage', function(e){
-    //     $(document).querySelector("favs").content = e.
-    // })
 
 });
