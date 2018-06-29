@@ -27,10 +27,7 @@ $(document).ready(function () {
     var imgSrcStill;
     var url;
     var variable;
-
-    $(document).on("dblclick", ".animals", function() {
-        generateGifs();
-    });
+  
 
     $(document).on("click", ".animals", function () {
         $("#play-area").empty();
@@ -76,29 +73,48 @@ $(document).ready(function () {
 
     );
 
-    if ($("#play-area").attr("data-double") === variable) {
-    }
+    if ($("#play-area").attr("data-double") === variable) {}
 
     $(document).on("dblclick", "img", function () {
         $(this).addClass("fav")
         $("#add-fav").append($(this));
+        // localStorage.setItem("favSrc", $(this).attr("src"));
+        // favArray.append(favSrc);
+        // favCount++
     });
+
+    // localStorage.clear();
+    var imgArray = [];
+
+    function loadStorage() {
+        // $("#favorites").empty();
+        //var imgArray = JSON.parse(localStorage.getItem("fav"))
+
+        // if(!Array.isArray("imgArray")){
+        //     "imgArray" = []
+        // }
+        
+        for (var i = 0; i < localStorage.length; i++) {
+           
+        }
+    }
+    loadStorage();
+
     $(document).on("dblclick", ".fav", function () {
-        // $(this).removeClass("fav");
         $(this).remove();
     })
 
-    function setFavs() {
-        var currentFav = localStorage.getItem('fav');
-        currentFav = document.querySelector('fav');
-        $("#add.fav").append(currentFav);
-    }
+    // function setFavs() {
+    //     var currentFav = localStorage.getItem('fav');
+    //     currentFav = document.querySelector('fav');
+    //     $("#add.fav").append(currentFav);
+    // }
 
-    function populateFavs() {
-        localStorage.setItem('fav', document.querySelector("fav"));
-        setFavs();
-    }
-    populateFavs();
+    // function populateFavs() {
+    //     localStorage.setItem('fav', document.querySelector("fav"));
+    //     setFavs();
+    // }
+    // populateFavs();
     // window.addEventListener('storage', function(e){
     //     $(document).querySelector("favs").content = e.
     // })
