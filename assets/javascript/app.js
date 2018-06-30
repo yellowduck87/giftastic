@@ -112,7 +112,7 @@ $(document).ready(function () {
         console.log("double")
         event.preventDefault();
         $(this).removeClass("post");
-        $(this).addClass("fav");
+        $(this).addClass("chosen")
         imgSrcStill = $(this).attr("data-still");
         imgArrayStill.push(imgSrcStill);
         localStorage.setItem("favStill", JSON.stringify(imgArrayStill));
@@ -157,11 +157,13 @@ $(document).ready(function () {
 
 //attempted delete function to remove fav from local storage--doen't work
     $(document).on("dblclick", ".fav", function () {
+        $(this).remove();
         var stills = JSON.parse(localStorage.getItem("favStill"));
         var anis = JSON.prase(localStorage.getItem("favAni"));
         var currentIndex = $(this).attr("data-index");
 
         stills.splice(currentIndex, 1);
+        anis.splce(currentIndex, 1);
         imgArrayAni = anis;
         imgArrayStill = stills;
 
