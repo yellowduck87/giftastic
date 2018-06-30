@@ -78,7 +78,8 @@ $(document).ready(function () {
                     newImg.attr("alt", $(this).attr("data-name"));
                     newImg.addClass("post");
 
-                    var rating = $("<p>");
+                    var rating = $("<div>");
+                    rating.attr("id", "rating");
                     rating.text(imgRating);
 
                     imgDiv.append("Rating: " + imgRating);
@@ -89,6 +90,8 @@ $(document).ready(function () {
 
             });
     };
+
+    //on click listener to play or pause gif
 
     $(document).on("click", "img", function () {
             if ($(this).attr("data-state") === "still") {
@@ -102,8 +105,9 @@ $(document).ready(function () {
 
     );
 
-    if ($("#play-area").attr("data-double") === variable) {}
+    // if ($("#play-area").attr("data-double") === variable) {}
 
+    //on double click listener to move imgae to fav section
     $(document).on("dblclick", ".post", function (event) {
         console.log("double")
         event.preventDefault();
@@ -123,7 +127,7 @@ $(document).ready(function () {
 
     });
 
-
+//loads the saved favs preferences from the localstorage
     function loadStorage() {
         $("#add-fav").empty();
 
@@ -140,6 +144,7 @@ $(document).ready(function () {
         for (var i = 0; i < currentFavStill.length; i++) {
             var p = $("<img>");
             p.attr("src", currentFavStill[i]);
+            p.addClass("fav")
             p.attr("data-still", currentFavStill[i])
             p.attr("data-ani", currentFavAni[i]);
             p.attr("data-state", "still");
@@ -150,7 +155,7 @@ $(document).ready(function () {
     loadStorage();
 
 
-
+//attempted delete function to remove fav from local storage--down't work
     $(document).on("dblclick", ".fav", function () {
         var stills = JSON.parse(localStorage.getItem("favStill"));
         var anis = JSON.prase(localStorage.getItem("favAni"));
