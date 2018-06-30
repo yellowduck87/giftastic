@@ -15,11 +15,17 @@ $(document).ready(function () {
 
     }
     //create a new button with input field
+    var animal = $("#animal-input").val().trim();
+
     $(".add-animal").on("click", function (event) {
-        event.preventDefault();
-        var animal = $("#animal-input").val().trim();
-        gifOptions.push(animal);
-        makeButtons();
+
+        if (animal !== "") {
+            event.preventDefault();
+            gifOptions.push(animal);
+            makeButtons();
+        } else {
+            alert("please choose an animal")
+        }
     })
 
     makeButtons();
@@ -56,7 +62,7 @@ $(document).ready(function () {
         $.ajax(url)
 
             .then(function (response) {
-             
+
 
                 var results = response.data;
 
@@ -69,7 +75,7 @@ $(document).ready(function () {
                     imgSrcStill = results[j].images.original_still.url;
 
                     imgRating = results[j].rating;
-                  
+
 
                     newImg.attr("src", imgSrcStill);
                     newImg.attr("data-still", imgSrcStill);
@@ -127,7 +133,7 @@ $(document).ready(function () {
 
     });
 
-//loads the saved favs preferences from the localstorage
+    //loads the saved favs preferences from the localstorage
     function loadStorage() {
         $("#add-fav").empty();
 
@@ -155,7 +161,7 @@ $(document).ready(function () {
     loadStorage();
 
 
-//attempted delete function to remove fav from local storage--doen't work
+    //attempted delete function to remove fav from local storage--doen't work
     $(document).on("dblclick", ".fav", function () {
         $(this).remove();
         var stills = JSON.parse(localStorage.getItem("favStill"));
