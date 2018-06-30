@@ -155,7 +155,7 @@ $(document).ready(function () {
     loadStorage();
 
 
-//attempted delete function to remove fav from local storage--down't work
+//attempted delete function to remove fav from local storage--doen't work
     $(document).on("dblclick", ".fav", function () {
         var stills = JSON.parse(localStorage.getItem("favStill"));
         var anis = JSON.prase(localStorage.getItem("favAni"));
